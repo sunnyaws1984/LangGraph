@@ -43,3 +43,19 @@ Reply:
 URGENT ESCALATION: User's app is crashing on login, preventing access for
 a client demo starting in 10 minutes. Please jump on this ticket immediately.
 ```
+
+### Memory
+
+Why it still works fine:
+This script is a single-shot ticket triage — classify → route → reply → END. It doesn't need to remember anything between runs. Each ticket is processed independently, so there's no session/conversation to persist. That's exactly why there's no thread_id: it's simply not needed for this use case
+
+If you wanted memory here, you'd add:
+pythonmemory = MemorySaver()
+graph = builder.compile(checkpointer=memory)
+
+config = {"configurable": {"thread_id": f"ticket-{ticket_id}"}}
+result = graph.invoke({...}, config=config)
+That would let you, for example, resume a ticket later, or track a conversation thread if the customer replies again.
+
+That would let you, for example, resume a ticket later, or track a conversation thread if the customer replies again.
+Bottom line: No checkpointer + no thread_id = no memory. This script is a stateless, one-shot pipeline — which is intentional for this use case

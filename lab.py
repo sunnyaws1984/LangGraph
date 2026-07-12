@@ -24,7 +24,7 @@ from typing import TypedDict, Literal
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.graph import StateGraph, START, END
 
-
+loaddotenv = True  # load .env file if present, for GOOGLE_API_KEY
 # ---------------------------------------------------------------------------
 # 1. STATE — the data that flows through every node in the graph.
 # ---------------------------------------------------------------------------
@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
     tickets = [
         "The app crashes every time I try to log in, and I have a client demo in 10 minutes!!",
-        "Hi, just wondering what your refund policy is for annual plans.",
+        #"Hi, just wondering what your refund policy is for annual plans.",
     ]
 
     for msg in tickets:
